@@ -5,10 +5,10 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = arrayOf(ToDoData::class), version = 1, exportSchema = false)
+@Database(entities = [ToDoDataModel::class], version = 1, exportSchema = false)
 abstract class ToDoRoomDataBase : RoomDatabase() {
 
-    abstract fun todoDao(): ToDoData
+    abstract fun todoDao(): ToDoDao
 
     companion object {
         // Singleton prevents multiple instances of database opening at the

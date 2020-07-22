@@ -1,58 +1,78 @@
 package com.mustaq.todolist
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.text.TextWatcher
-import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.view.View
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_add_to_do.*
-import kotlinx.android.synthetic.main.activity_add_to_do.view.*
-import kotlin.math.log
 
 class AddToDoActivity : AppCompatActivity() {
 
-    lateinit var simpleTextInputLayout: TextInputLayout
-    lateinit var editText: TextInputEditText
+    lateinit var edTitle: TextInputEditText
+    lateinit var edPriority: TextInputEditText
+    lateinit var edDescription: TextInputEditText
+    lateinit var btnSaveData: MaterialButton
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_to_do)
-        initView()
+        btnSaveData = findViewById(R.id.btnSave)
 
+        edTitle = findViewById(R.id.edTitle)
+        edPriority = findViewById(R.id.edPriority)
+        edDescription = findViewById(R.id.edDescription)
 
-        val items = listOf("Material", "Design", "Components", "Android")
-        val adapter = ArrayAdapter(applicationContext, R.layout.list_item, items)
-        (textField.editText as? AutoCompleteTextView)?.setAdapter(adapter)
-    }
+        btnSaveData.setOnClickListener {
 
-    private fun initView() {
-        simpleTextInputLayout = findViewById(R.id.simpleTextInputLayout)
-        editText = findViewById(R.id.edSimple)
-
-        Log.e(TAG, "initView: ${simpleTextInputLayout.editText!!.text}")
-        Log.e(TAG, "initView: ${editText.text}")
-
-        simpleTextInputLayout.addOnEditTextAttachedListener {
-            // If any specific changes should be done when the edit text is attached (and
-            // thus when the trailing icon is added to it), set an
-            // OnEditTextAttachedListener.
-
-            // Example: The clear text icon's visibility behavior depends on whether the
-            // EditText has input present. Therefore, an OnEditTextAttachedListener is set
-            // so things like editText.getText() can be called.
-            //Toast.makeText(applicationContext,"${it.editText!!.text}",Toast.LENGTH_SHORT).show()//
+            when {
+                edTitle.text!!.isEmpty() -> {
+                    toast(this, "Please Enter Title")
+                }
+                edPriority.text!!.isEmpty() -> {
+                    toast(this, "Please Enter Priority")
+                }
+                edDescription.text!!.isEmpty() -> {
+                    toast(this, "Please Enter Description")
+                }
+                else -> {
+                    val toDoDataModel = ToDoDataModel(
+                        null,
+                        edPriority.text.toString().trim(),
+                        edTitle.text.toString().trim(),
+                        edDescription.text.toString().trim()
+                    )
+                    val replyIntent = Intent()
+                    replyIntent.putExtra(EXTRA_REPLY, toDoDataModel)
+                    this.setResult(RESULT_OK, replyIntent)
+                    this.finish()
+                }
+            }
         }
-       
+
 
     }
 
     companion object {
         const val TAG = "AddActivity"
+        const val EXTRA_REPLY = "EXTRA_REPLAY"
+    }
+
+    fun checkIsEmpty(vararg view: View) {
+        for (i in view) {
+
+        }
+    }
+
+    fun fieldCheckEmpty(editText: TextInputEditText): Boolean {
+        return editText.text!!.isEmpty()
+    }
+
+    fun toast(context: Context, message: String) {
+        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 }
+

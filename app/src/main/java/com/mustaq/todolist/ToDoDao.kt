@@ -7,12 +7,12 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
 @Dao
-interface ToDoDao {
+public interface ToDoDao {
     @Query("SELECT * FROM ToDoTable")
-    fun getAllToDoList(): LiveData<List<ToDoData>>
+    fun getAllToDoList(): LiveData<List<ToDoDataModel>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertToDo(toDoData: ToDoData)
+    suspend fun insertToDo(toDoDataModel: ToDoDataModel)
 
     @Query("DELETE FROM ToDoTable")
     suspend fun deleteAllToDo()
@@ -25,11 +25,11 @@ interface ToDoDao {
 
     //ascending
     @Query("SELECT * from ToDoTable ORDER BY priority ASC")
-    fun getToDoListAscendingOrder(): LiveData<List<ToDoData>>
+    fun getToDoListAscendingOrder(): LiveData<List<ToDoDataModel>>
 
 
     @Query("SELECT * from ToDoTable ORDER BY priority DESC")
-    fun getToDoListDescendingOrder(): LiveData<List<ToDoData>>
+    fun getToDoListDescendingOrder(): LiveData<List<ToDoDataModel>>
 
 
 }
