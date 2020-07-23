@@ -1,4 +1,4 @@
-package com.mustaq.todolist
+/*package com.mustaq.todolist
 
 import android.os.Parcel
 import android.os.Parcelable
@@ -44,7 +44,7 @@ data class ToDoDataModel(@PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id
             return arrayOfNulls(size)
         }
     }
-}
+}*/
 
 
 /**8-high 12-low -13-medium**/

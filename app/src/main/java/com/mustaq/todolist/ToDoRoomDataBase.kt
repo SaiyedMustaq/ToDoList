@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
-@Database(entities = [ToDoDataModel::class], version = 1, exportSchema = false)
+@Database(entities = [TodoModel::class], version = 1, exportSchema = false)
 abstract class ToDoRoomDataBase : RoomDatabase() {
 
     abstract fun todoDao(): ToDoDao
@@ -28,7 +28,7 @@ abstract class ToDoRoomDataBase : RoomDatabase() {
                     context.applicationContext,
                     ToDoRoomDataBase::class.java,
                     DATABASE_NAME
-                ).build()
+                ).allowMainThreadQueries().build()
                 INSTANCE = instance
                 return instance
             }

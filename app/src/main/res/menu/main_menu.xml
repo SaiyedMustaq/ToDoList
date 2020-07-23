@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/idAscending"
+        app:showAsAction="ifRoom"
+        android:iconTintMode="add"
+        android:icon="@drawable/ic_sort_a_to_z"
+        android:title="Ascending" />
+    <item
+        android:id="@+id/idDescending"
+        app:showAsAction="ifRoom"
+        android:iconTintMode="add"
+        android:icon="@drawable/ic_sort_z_to_a"
+        android:title="Ascending" />
+    <item
+        android:id="@+id/idClearAll"
+        app:showAsAction="ifRoom"
+        android:iconTintMode="add"
+        android:icon="@drawable/ic_delete_all"
+        android:title="Clear All" />
+
+</menu>
