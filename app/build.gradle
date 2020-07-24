@@ -67,4 +67,6 @@ dependencies {
 
 // Testing
     androidTestImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
+
+    implementation 'com.intuit.sdp:sdp-android:1.0.6'
 }

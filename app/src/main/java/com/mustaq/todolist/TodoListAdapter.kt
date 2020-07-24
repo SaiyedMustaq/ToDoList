@@ -30,6 +30,9 @@ class TodoListAdapter internal constructor(val context: Context, val onToDoClick
         fun bind(current: TodoModel) {
             itemView.tvTitle.text = current.taskTitle.toString()
             itemView.tvDesc.text = current.taskDescription.toString()
+            itemView.imgDelete.setOnClickListener {
+                onToDoClick.deleteSingleNote(current.taskId)
+            }
 
             when (current.taskPriority) {
                 1, 2, 3 -> {

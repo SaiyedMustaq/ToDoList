@@ -1,10 +1,10 @@
 package com.mustaq.todolist
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.AdapterView
-import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Toast
@@ -22,6 +22,7 @@ class AddToDoActivity : AppCompatActivity() {
     lateinit var btnSaveData: MaterialButton
     lateinit var btnUpdateData: MaterialButton
     lateinit var priorityTextInputLayout: TextInputLayout
+    var priority=""
     var getIntent = ""
 
 
@@ -51,35 +52,35 @@ class AddToDoActivity : AppCompatActivity() {
         val editTextFilledExposedDropdown: AutoCompleteTextView = findViewById(R.id.edPriority)
         editTextFilledExposedDropdown.setAdapter(adapter)
 
-
-        editTextFilledExposedDropdown.onItemSelectedListener = object : OnItemSelectedListener {
-            override fun onItemSelected(
-                adapterView: AdapterView<*>?,
-                view: View,
-                i: Int,
-                l: Long
-            ) {
-                Toast.makeText(
-                    applicationContext, "This is " +
-                            adapterView!!.getItemAtPosition(i).toString(), Toast.LENGTH_LONG
-                ).show();
-            }
-
-            override fun onNothingSelected(arg0: AdapterView<*>?) {
-                // TODO Auto-generated method stub
-            }
+        editTextFilledExposedDropdown.setOnItemClickListener { parent, view, position, id ->
+            Log.e(TAG, "initView: ${parent.adapter.getItem(position)}")
+            priority=parent.adapter.getItem(position).toString()
         }
 
+
         btnSaveData.setOnClickListener {
-            /*val toDoDataModel = TodoModel(
-                edTitle.text.toString().trim(),
-                edPriority.text.toString().toInt(),
-                edDescription.text.toString().trim()
-            )
-            val replyIntent = Intent()
-            replyIntent.putExtra(EXTRA_REPLY, toDoDataModel)
-            this.setResult(RESULT_OK, replyIntent)
-            this.finish()*/
+            when {
+                edTitle.text!!.isEmpty() -> {
+                    toast(this, "Please Enter Title")
+                }
+                priority.isEmpty() -> {
+                    toast(this, "Please Enter Priority")
+                }
+                edDescription.text!!.isEmpty() -> {
+                    toast(this, "Please Enter Description")
+                }
+                else -> {
+                    val toDoDataModel = TodoModel(
+                        edTitle.text.toString().trim(),
+                        priority.toInt(),
+                        edDescription.text.toString().trim()
+                    )
+                    val replyIntent = Intent()
+                    replyIntent.putExtra(EXTRA_REPLY, toDoDataModel)
+                    this.setResult(RESULT_OK, replyIntent)
+                    this.finish()
+                }
+            }
         }
 
 

@@ -1,17 +1,21 @@
 package com.mustaq.todolist
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.material_dialog.*
 
 class MainActivity : AppCompatActivity(), onToDoClick {
     private val newTodoCode = 1
@@ -40,16 +44,34 @@ class MainActivity : AppCompatActivity(), onToDoClick {
                 intent,
                 newTodoCode
             )
-            /* val word = TodoModel(
-                 "Title",
-                 5,
-                 "Description"
-             )
-             todoViewModel.insert(word)*/
-
         }
+    }
+
+    override fun click(todoModel: TodoModel) {
+        /*val editIntent = Intent(this, AddToDoActivity::class.java)
+        editIntent.putExtra(EDIT_INTENT, todoModel)
+        startActivity(editIntent)*/
 
     }
+
+    override fun deleteSingleNote(taskId: Int) {
+        deleteSingleNoteDialog(taskId)
+    }
+
+    private fun deleteSingleNoteDialog(taskId: Int) {
+        val dialog = Dialog(this@MainActivity)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setContentView(R.layout.material_dialog)
+        dialog.show()
+        dialog.tvDialogTitle.text = "Are you went to sure to remove?"
+        dialog.dialogNo.setOnClickListener { dialog.dismiss() }
+        dialog.dialogYes.setOnClickListener {
+            todoViewModel.deleteSingleItemViewModel(taskId)
+            dialog.dismiss()
+        }
+    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -83,11 +105,6 @@ class MainActivity : AppCompatActivity(), onToDoClick {
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
 
-    override fun click(todoModel: TodoModel) {
-        val editIntent = Intent(this, AddToDoActivity::class.java)
-        editIntent.putExtra(EDIT_INTENT, todoModel)
-        Log.e(TAG, "click: $todoModel")
-    }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -98,9 +115,7 @@ class MainActivity : AppCompatActivity(), onToDoClick {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.idClearAll -> {
-                todoViewModel.deleteAll()
-                adapter.notifyDataSetChanged()
-                Toast.makeText(applicationContext, "Clear All Data", Toast.LENGTH_LONG).show()
+                deleteAllNoteDialog()
                 true
             }
             R.id.idDescending -> {
@@ -126,6 +141,22 @@ class MainActivity : AppCompatActivity(), onToDoClick {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun deleteAllNoteDialog() {
+        val dialog = Dialog(this@MainActivity)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.setContentView(R.layout.material_dialog)
+        dialog.show()
+        dialog.tvDialogTitle.text = "Are you went to sure to clear all?"
+        dialog.dialogNo.setOnClickListener { dialog.dismiss() }
+        dialog.dialogYes.setOnClickListener {
+            todoViewModel.deleteAll()
+            adapter.notifyDataSetChanged()
+            dialog.dismiss()
+            Toast.makeText(applicationContext, "Clear All Data", Toast.LENGTH_LONG).show()
         }
     }
 }

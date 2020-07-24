@@ -20,6 +20,7 @@ public interface ToDoDao {
     @Query("DELETE FROM ToDoTable WHERE taskId=:todoId")
     fun deleteSelectedItem(todoId: Int)
 
+
     @Query("UPDATE ToDoTable SET taskTitle=:updatedTitle,taskPriority=:updatedPriority,taskDescription=:updateDescription WHERE taskId = :todoId")
     fun updateToDo(
         todoId: Int,

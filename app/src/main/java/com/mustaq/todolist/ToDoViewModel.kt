@@ -49,5 +49,9 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
         repository.descendingOrder()
     }
 
+    fun deleteSingleItemViewModel(taskId: Int) {
+        repository.deleteSingleItem(taskId)
+    }
+
 
 }

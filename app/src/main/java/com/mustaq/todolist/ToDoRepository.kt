@@ -27,4 +27,7 @@ class ToDoRepository(val toDoDao: ToDoDao) {
     fun descendingOrder() {
         toDoDao.getToDoListDescendingOrder()
     }
+    fun deleteSingleItem(taskId: Int) {
+        toDoDao.deleteSelectedItem(taskId)
+    }
 }

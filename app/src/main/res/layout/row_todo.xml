@@ -6,56 +6,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="@dimen/_10sdp"
     android:background="@drawable/todo_card_background">
 
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvTitle"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:maxLength="10"
-        android:text="Todo Title"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        app:fontFamily="sans-serif-black"
-        app:layout_constraintBottom_toBottomOf="@+id/tvPriority"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/tvPriority"
-        app:layout_constraintTop_toTopOf="@+id/tvPriority"
-        tools:text="TODO TITLE" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/tvDesc"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="24dp"
-        android:textColor="#000000"
-        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvTitle"
-        app:layout_constraintStart_toStartOf="@+id/tvPriority"
-        app:layout_constraintTop_toBottomOf="@+id/tvPriority"
-        tools:text="TextViewTextVie w Text View Tex tView  T e x tView  T e x tV i ew T e xt V i e w T e x  t Vi e w " />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvPriority"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:textColor="#FFF"
-        android:gravity="center"
-        android:text="1"
-        tools:text="1"
-        android:background="@drawable/todo_card_background"
-        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:maxLength="10"
+            android:textColor="#000000"
+            android:textSize="@dimen/_12sdp"
+            app:fontFamily="sans-serif-black"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPriority"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvPriority"
+            app:layout_constraintTop_toTopOf="@+id/tvPriority"
+            tools:text="TODO TITLE" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginBottom="24dp"
+            android:textColor="#000000"
+            android:textSize="@dimen/_10sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvTitle"
+            app:layout_constraintStart_toStartOf="@+id/tvPriority"
+            app:layout_constraintTop_toBottomOf="@+id/tvPriority"
+            tools:text="TextViewTextVie w Text View Tex tView  T e x tView  T e x tV i ew T e xt V i e w T e x  t Vi e w " />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvPriority"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/todo_card_background"
+            android:gravity="center"
+            android:text="1"
+            android:textColor="#FFF"
+            android:textSize="@dimen/_15sdp"
+            tools:textColor="#000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+        <ImageView
+            android:id="@+id/imgDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tvDesc"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
